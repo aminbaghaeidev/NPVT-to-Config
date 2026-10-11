@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NPVT Decrypter</title>
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@stlite/browser@0.85.1/build/stlite.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@0.85.1/build/stlite.js";
+
+      const files = [
+        "app.py",
+        "data/npv_tables.json",
+        "src/npvt_decrypter/whitebox_aes.py",
+        "src/npvt_decrypter/link_builder.py",
+        "src/UI/inputs.py",
+        "src/UI/processing.py",
+        "src/UI/results.py",
+        "src/UI/sidebar.py",
+        "src/utils/data_loader.py",
+        "src/utils/streamlit_cache.py"
+      ];
+
+      mount(
+        {
+          entrypoint: "app.py",
+          files: Object.fromEntries(files.map((f) => [f, { url: "./" + f }])),
+        },
+        document.getElementById("root"),
+      );
+
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
+  </body>
+</html>
