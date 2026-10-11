@@ -6,9 +6,15 @@ def get_input_content():
     content = ""
 
     with tab_file:
-        uploaded_file = st.file_uploader("(.npvt | .txt) فایل کانفیگ", type=["npvt", "txt"])
-        if uploaded_file is not None:
-            content = uploaded_file.getvalue().decode("utf-8", errors="ignore")
+        uploaded_files = st.file_uploader(
+            "(.npvt | .txt) فایل کانفیگ",
+            type=["npvt", "txt"],
+            accept_multiple_files=True
+        )
+        if uploaded_files:
+            content = "\n".join(
+                f.getvalue().decode("utf-8", errors="ignore") for f in uploaded_files
+            )
 
     with tab_text:
         text_input = st.text_area(":را وارد کنید NPVT محتوای متنی فایل", height=150)
